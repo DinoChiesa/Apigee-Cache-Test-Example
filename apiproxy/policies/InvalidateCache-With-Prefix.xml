@@ -1,0 +1,9 @@
+<InvalidateCache name='InvalidateCache-With-Prefix'>
+<!--
+  <Scope>Application</Scope>
+-->
+  <CacheKey>
+    <Prefix>myprefix</Prefix>
+  </CacheKey>
+  <PurgeChildEntries>false</PurgeChildEntries>
+</InvalidateCache>

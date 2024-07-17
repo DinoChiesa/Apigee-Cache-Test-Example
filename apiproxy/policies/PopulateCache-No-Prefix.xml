@@ -1,0 +1,17 @@
+<PopulateCache name='PopulateCache-No-Prefix'>
+
+  <Scope>Application</Scope>
+  <Source>request.content</Source>
+
+  <ExpirySettings>
+    <TimeoutInSeconds>180</TimeoutInSeconds>
+  </ExpirySettings>
+
+  <CacheKey>
+    <!--
+    <Prefix>myprefix</Prefix>
+    -->
+    <KeyFragment ref='request.queryparam.id' />
+  </CacheKey>
+
+</PopulateCache>

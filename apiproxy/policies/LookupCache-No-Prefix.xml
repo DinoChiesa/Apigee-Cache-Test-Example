@@ -1,0 +1,10 @@
+<LookupCache name='LookupCache-No-Prefix'>
+  <AssignTo>cachedresult</AssignTo> <!-- name of context variable -->
+  <Scope>Application</Scope>
+  <CacheKey>
+<!--
+    <Prefix>myprefix</Prefix>
+-->
+    <KeyFragment ref='request.queryparam.id' />
+  </CacheKey>
+</LookupCache>

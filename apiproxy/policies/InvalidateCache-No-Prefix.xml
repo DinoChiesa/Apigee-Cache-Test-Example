@@ -1,0 +1,11 @@
+<InvalidateCache name='InvalidateCache-No-Prefix'>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+  <Scope>Application</Scope>
+  <CacheKey>
+    <!--
+    <Prefix>myprefix</Prefix>
+    -->
+    <KeyFragment ref='request.queryparam.id' />
+  </CacheKey>
+  <PurgeChildEntries>false</PurgeChildEntries>
+</InvalidateCache>

@@ -1,0 +1,8 @@
+<AssignMessage name='AM-EmptyString'>
+  <DisplayName>AM-EmptyString</DisplayName>
+  <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+  <AssignVariable>
+    <Name>empty</Name>
+    <Value></Value>
+  </AssignVariable>
+</AssignMessage>

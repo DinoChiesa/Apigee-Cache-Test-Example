@@ -1,0 +1,19 @@
+<PopulateCache name='PopulateCache-With-Prefix-Empty'>
+
+<!--
+  <Scope>Application</Scope>
+-->
+
+  <!-- the variable named 'empty' holds the empty string at this point -->
+  <Source>empty</Source>
+
+  <ExpirySettings>
+    <TimeoutInSeconds>180</TimeoutInSeconds>
+  </ExpirySettings>
+
+  <CacheKey>
+    <Prefix>myprefix</Prefix>
+    <KeyFragment ref='request.queryparam.id' />
+  </CacheKey>
+
+</PopulateCache>

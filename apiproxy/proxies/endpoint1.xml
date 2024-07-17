@@ -1,0 +1,282 @@
+<ProxyEndpoint name="endpoint1">
+  <Description>Default Proxy</Description>
+  <HTTPProxyConnection>
+    <BasePath>/cache-test</BasePath>
+    <Properties/>
+    <VirtualHost>secure</VirtualHost>
+  </HTTPProxyConnection>
+
+  <FaultRules/>
+  <DefaultFaultRule>
+    <AlwaysEnforce>true</AlwaysEnforce>
+    <Step>
+      <Name>AM-Inject-Proxy-Revision-Header</Name>
+    </Step>
+  </DefaultFaultRule>
+
+  <PreFlow name="PreFlow">
+    <Request/>
+    <Response>
+      <Step>
+        <Name>AM-Clean-Request-Headers-From-Response</Name>
+      </Step>
+    </Response>
+  </PreFlow>
+  <PostFlow name="PostFlow">
+    <Request/>
+    <Response>
+      <Step>
+        <Name>AM-Inject-Proxy-Revision-Header</Name>
+      </Step>
+    </Response>
+  </PostFlow>
+  <PostClientFlow name="PostFlow">
+    <Request/>
+    <Response>
+    </Response>
+  </PostClientFlow>
+
+  <Flows>
+    <!-- ====================== WITH PREFIX ====================== -->
+    <Flow name="populate-with-prefix">
+      <Request>
+        <Step>
+          <Condition>request.queryparam.id = null</Condition>
+          <Name>RF-InvalidRequest</Name>
+        </Step>
+        <Step>
+          <Name>PopulateCache-With-Prefix</Name>
+        </Step>
+        <Step>
+          <Name>LookupCache-With-Prefix</Name>
+        </Step>
+      </Request>
+      <Response>
+        <Step>
+          <Name>AM-Response</Name>
+        </Step>
+      </Response>
+      <Condition>(proxy.pathsuffix MatchesPath "/populate-with-prefix") and (request.verb = "POST")</Condition>
+    </Flow>
+
+    <Flow name="populate-with-prefix-blank">
+      <Request>
+        <Step>
+          <Condition>request.queryparam.id = null</Condition>
+          <Name>RF-InvalidRequest</Name>
+        </Step>
+        <Step>
+          <Name>AM-EmptyString</Name>
+        </Step>
+        <Step>
+          <Name>PopulateCache-With-Prefix-Empty</Name>
+        </Step>
+        <Step>
+          <Name>LookupCache-With-Prefix</Name>
+        </Step>
+      </Request>
+      <Response>
+        <Step>
+          <Name>AM-Response</Name>
+        </Step>
+      </Response>
+      <Condition>(proxy.pathsuffix MatchesPath "/populate-with-prefix-blank") and (request.verb = "POST")</Condition>
+    </Flow>
+
+    <Flow name="lookup-with-prefix">
+      <Request>
+        <Step>
+          <Condition>request.queryparam.id = null</Condition>
+          <Name>RF-InvalidRequest</Name>
+        </Step>
+        <Step>
+          <Name>LookupCache-With-Prefix</Name>
+        </Step>
+      </Request>
+      <Response>
+        <Step>
+          <Name>AM-Response</Name>
+        </Step>
+      </Response>
+      <Condition>(proxy.pathsuffix MatchesPath "/lookup-with-prefix") and (request.verb = "GET")</Condition>
+    </Flow>
+
+    <Flow name="invalidate-with-prefix">
+      <Request>
+        <Step>
+          <Name>InvalidateCache-With-Prefix</Name>
+        </Step>
+      </Request>
+      <Response>
+        <Step>
+          <Name>AM-Response</Name>
+        </Step>
+      </Response>
+      <Condition>(proxy.pathsuffix MatchesPath "/invalidate-with-prefix") and (request.verb = "POST")</Condition>
+    </Flow>
+
+    <Flow name="invalidate-with-prefix-specific-entry">
+      <Request>
+        <Step>
+          <Condition>request.queryparam.id = null</Condition>
+          <Name>RF-InvalidRequest</Name>
+        </Step>
+        <Step>
+          <Name>InvalidateCache-With-Prefix-Specific-Entry</Name>
+        </Step>
+        <Step>
+          <Name>LookupCache-With-Prefix</Name>
+        </Step>
+      </Request>
+      <Response>
+        <Step>
+          <Name>AM-Response</Name>
+        </Step>
+      </Response>
+      <Condition>(proxy.pathsuffix MatchesPath "/invalidate-with-prefix-specific-entry") and (request.verb = "POST")</Condition>
+    </Flow>
+
+    <Flow name="invalidate-with-prefix-with-purge">
+      <Request>
+        <Step>
+          <Name>InvalidateCache-With-Prefix-With-Purge</Name>
+        </Step>
+      </Request>
+      <Response>
+        <Step>
+          <Name>AM-Response</Name>
+        </Step>
+      </Response>
+      <Condition>(proxy.pathsuffix MatchesPath "/invalidate-with-prefix-with-purge") and (request.verb = "POST")</Condition>
+    </Flow>
+
+    <!-- ====================== WITHOUT PREFIX ====================== -->
+    <Flow name="populate-no-prefix">
+      <Request>
+        <Step>
+          <Condition>request.queryparam.id = null</Condition>
+          <Name>RF-InvalidRequest</Name>
+        </Step>
+        <Step>
+          <Name>PopulateCache-No-Prefix</Name>
+        </Step>
+        <Step>
+          <Name>LookupCache-No-Prefix</Name>
+        </Step>
+      </Request>
+      <Response>
+        <Step>
+          <Name>AM-Response</Name>
+        </Step>
+      </Response>
+      <Condition>(proxy.pathsuffix MatchesPath "/populate-no-prefix") and (request.verb = "POST")</Condition>
+    </Flow>
+
+    <Flow name="populate-no-prefix-blank">
+      <Request>
+        <Step>
+          <Condition>request.queryparam.id = null</Condition>
+          <Name>RF-InvalidRequest</Name>
+        </Step>
+        <Step>
+          <Name>AM-EmptyString</Name>
+        </Step>
+        <Step>
+          <Name>PopulateCache-No-Prefix-Empty</Name>
+        </Step>
+        <Step>
+          <Name>LookupCache-No-Prefix</Name>
+        </Step>
+      </Request>
+      <Response>
+        <Step>
+          <Name>AM-Response</Name>
+        </Step>
+      </Response>
+      <Condition>(proxy.pathsuffix MatchesPath "/populate-no-prefix-blank") and (request.verb = "POST")</Condition>
+    </Flow>
+
+    <Flow name="lookup-no-prefix">
+      <Request>
+        <Step>
+          <Condition>request.queryparam.id = null</Condition>
+          <Name>RF-InvalidRequest</Name>
+        </Step>
+        <Step>
+          <Name>LookupCache-No-Prefix</Name>
+        </Step>
+      </Request>
+      <Response>
+        <Step>
+          <Name>AM-Response</Name>
+        </Step>
+      </Response>
+      <Condition>(proxy.pathsuffix MatchesPath "/lookup-no-prefix") and (request.verb = "GET")</Condition>
+    </Flow>
+
+
+    <Flow name="invalidate-no-prefix">
+      <Request>
+        <Step>
+          <Name>InvalidateCache-No-Prefix</Name>
+        </Step>
+      </Request>
+      <Response>
+        <Step>
+          <Name>AM-Response</Name>
+        </Step>
+      </Response>
+      <Condition>(proxy.pathsuffix MatchesPath "/invalidate-no-prefix") and (request.verb = "POST")</Condition>
+    </Flow>
+
+    <Flow name="invalidate-no-prefix-specific-entry">
+      <Request>
+        <Step>
+          <Condition>request.queryparam.id = null</Condition>
+          <Name>RF-InvalidRequest</Name>
+        </Step>
+        <Step>
+          <Name>InvalidateCache-No-Prefix-Specific-Entry</Name>
+        </Step>
+        <Step>
+          <Name>LookupCache-No-Prefix</Name>
+        </Step>
+      </Request>
+      <Response>
+        <Step>
+          <Name>AM-Response</Name>
+        </Step>
+      </Response>
+      <Condition>(proxy.pathsuffix MatchesPath "/invalidate-no-prefix-specific-entry") and (request.verb = "POST")</Condition>
+    </Flow>
+
+    <Flow name="invalidate-no-prefix-with-purge">
+      <Request>
+        <Step>
+          <Name>InvalidateCache-No-Prefix-With-Purge</Name>
+        </Step>
+      </Request>
+      <Response>
+        <Step>
+          <Name>AM-Response</Name>
+        </Step>
+      </Response>
+      <Condition>(proxy.pathsuffix MatchesPath "/invalidate-no-prefix-with-purge") and (request.verb = "POST")</Condition>
+    </Flow>
+
+    <!-- ====================== Unknown Request ====================== -->
+    <Flow name="unknown request">
+      <Request>
+        <Step>
+          <Name>RF-UnknownRequest</Name>
+        </Step>
+      </Request>
+      <Response>
+      </Response>
+    </Flow>
+
+  </Flows>
+
+  <RouteRule name="NoRouteRule"/>
+
+</ProxyEndpoint>
